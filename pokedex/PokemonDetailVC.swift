@@ -35,7 +35,7 @@ class PokemonDetailVC: UIViewController {
         currentEvoImg.image = img
         
         pokemon.downloadPokemonDetails { () -> () in
-            // this will be called after download is done
+            //this will be called after download is done
             self.updateUI()
         }
     }
@@ -50,7 +50,7 @@ class PokemonDetailVC: UIViewController {
         baseAttack.text = pokemon.attack
         
         if pokemon.nextEvoId == "" {
-            evoLbl.text = "No evolution"
+            evoLbl.text = "No Evolutions"
             nextEvoImg.hidden = true
         } else {
             nextEvoImg.hidden = false
@@ -61,7 +61,6 @@ class PokemonDetailVC: UIViewController {
                 str += " - LVL \(pokemon.nextEvoLvl)"
             }
         }
-        
     }
 
     override func didReceiveMemoryWarning() {

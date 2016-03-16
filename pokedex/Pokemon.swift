@@ -90,16 +90,10 @@ class Pokemon {
     }
     
     var name: String {
-        if _name == nil {
-            _name = ""
-        }
         return _name
     }
     
-    var pokedexId: Int {
-        if _pokedexId == nil {
-            _pokedexId = ""
-        }
+    var pokedexId: Int {        
         return _pokedexId
     }
     
@@ -111,6 +105,7 @@ class Pokemon {
     }
     
     func downloadPokemonDetails(completed: DownloadComplete) {
+        
         let url = NSURL(string: _pokemonUrl)!
         Alamofire.request(.GET, url).responseJSON { response in
             let result = response.result
@@ -120,7 +115,7 @@ class Pokemon {
                     self._weight = weight
                 }
                 if let height = dict["height"] as? String {
-                    self._height = height
+                    self._height = height                    
                 }
                 if let attack = dict["attack"] as? Int {
                     self._attack = "\(attack)"
@@ -128,6 +123,11 @@ class Pokemon {
                 if let defense = dict["defense"] as? Int {
                     self._defense = "\(defense)"
                 }
+                
+                print(self._weight)
+                print(self._height)
+                print(self._attack)
+                print(self._defense)
                 if let types = dict["types"] as? [Dictionary<String,String>] where types.count > 0 {
                     if let name = types[0]["name"] {
                         self._type = name.capitalizedString
@@ -143,7 +143,8 @@ class Pokemon {
                     self._type = ""
                 }
                 
-                if let descArr = dict["description"] as? [Dictionary<String, String>] where descArr.count > 0 {
+                
+                if let descArr = dict["descriptions"] as? [Dictionary<String, String>] where descArr.count > 0 {
                     if let url = descArr[0]["resource_uri"] {
                         let nsurl = NSURL(string:  "\(URL_BASE)\(url)")!
                         Alamofire.request(.GET, nsurl).responseJSON { response in
@@ -174,6 +175,7 @@ class Pokemon {
                                 if let lvl = evolutions[0]["level"] as? Int {
                                     self._nextEvoLvl = "\(lvl)"
                                 }
+                                //completed()
 
                             }
                         }
